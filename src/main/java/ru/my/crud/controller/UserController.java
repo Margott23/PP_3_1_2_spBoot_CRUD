@@ -1,6 +1,5 @@
 package ru.my.crud.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +16,11 @@ public class UserController {
 
     private final UserService userService;
 
-    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-    @GetMapping()
+    @GetMapping
     public String getUserById(@RequestParam(value = "id", required = false) Integer id, Model model) {
         if (id == null) {
             model.addAttribute("users", userService.findAll());
@@ -38,7 +36,7 @@ public class UserController {
         return "users/new_user";
     }
 
-    @PostMapping()
+    @PostMapping
     public String saveUser(@ModelAttribute("user") User user) {
         userService.save(user);
         return "redirect:/users";
